@@ -8,11 +8,7 @@
           <el-input v-model="loginInfo.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input 
-          v-model="loginInfo.password" 
-          :type="passwordType"
-          @keyup.enter.native="handleLogin(loginInfo)"
-          ></el-input>
+          <el-input v-model="loginInfo.password" :type="passwordType"></el-input>
         </el-form-item>
         <el-button :loading="loading"  type="primary" @click="handleLogin(loginInfo)">登录</el-button>
       </el-form>
@@ -51,7 +47,6 @@ export default {
         password:[{required: true,validator:validatePassword,trigger:"blur"}]
       },
       loading:false,
-      passwordType:"password"
     };
   },
   mounted(){

@@ -6,7 +6,6 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './plugins/element.js'
 import router from "./router/index.js"
 import store from './store/index.js'
-const Mock = require('mockjs')
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 

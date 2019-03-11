@@ -8,11 +8,7 @@
           <el-input v-model="loginInfo.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input 
-          v-model="loginInfo.password" 
-          :type="passwordType"
-          @keyup.enter.native="handleLogin(loginInfo)"
-          ></el-input>
+          <el-input v-model="loginInfo.password"></el-input>
         </el-form-item>
         <el-button :loading="loading"  type="primary" @click="handleLogin(loginInfo)">登录</el-button>
       </el-form>
@@ -30,7 +26,8 @@ export default {
     //data里面可以写函数
     const validateUsername=(rule,value,callback)=>{
         if(value===""){
-            
+            console.log(value,"value")
+            console.log("没有值")
             return callback(new Error("用户名不能为空"))
         }
     }
@@ -43,7 +40,7 @@ export default {
       labelPosition: "right",
       loginInfo: {
         username: "admin",
-        password: "123456",
+        password: "11111",
       },
       //规则要传给form
       loginRules:{
@@ -51,7 +48,6 @@ export default {
         password:[{required: true,validator:validatePassword,trigger:"blur"}]
       },
       loading:false,
-      passwordType:"password"
     };
   },
   mounted(){

@@ -51,7 +51,6 @@ export default {
         password:[{required: true,validator:validatePassword,trigger:"blur"}]
       },
       loading:false,
-      passwordType:"password"
     };
   },
   mounted(){

@@ -3,16 +3,12 @@
   <el-container class="login-container">
        
     <div style="margin: 0 auto; width:400px;">
-      <el-form ref="loginForm" :rules="loginRules" :label-position="labelPosition" label-width="80px" :model="loginInfo">
+      <el-form ref="loginForm" :label-position="labelPosition" label-width="80px" :model="loginInfo">
         <el-form-item label="账号" prop="username">
           <el-input v-model="loginInfo.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input 
-          v-model="loginInfo.password" 
-          :type="passwordType"
-          @keyup.enter.native="handleLogin(loginInfo)"
-          ></el-input>
+          <el-input v-model="loginInfo.password"></el-input>
         </el-form-item>
         <el-button :loading="loading"  type="primary" @click="handleLogin(loginInfo)">登录</el-button>
       </el-form>
@@ -29,29 +25,27 @@ export default {
   data() {
     //data里面可以写函数
     const validateUsername=(rule,value,callback)=>{
-        if(value===""){
-            
-            return callback(new Error("用户名不能为空"))
+        if(!value){
+          console.log("没有值")
+            return callback(new err("用户名不能为空"))
         }
     }
     const validatePassword=(rule,value,callback)=>{
-        if(value===""){
-            return callback(new Error("密码不能为空"))
+        if(!value){
+            return callback(new err("密码不能为空"))
         }
     }
     return {
       labelPosition: "right",
       loginInfo: {
-        username: "admin",
-        password: "123456",
+        username: "",
+        password: "",
       },
-      //规则要传给form
       loginRules:{
         username:[{required: true,validator:validateUsername,trigger:"blur"}],
         password:[{required: true,validator:validatePassword,trigger:"blur"}]
       },
       loading:false,
-      passwordType:"password"
     };
   },
   mounted(){
