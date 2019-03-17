@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "element-ui": "^2.4.5",
+    "mockjs": "^1.0.1-beta3",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1"
   },

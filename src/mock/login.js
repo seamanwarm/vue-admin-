@@ -6,16 +6,16 @@ const userMap={
     admin:{
         roles:["admin"],
         token:"admin",
-        introdution:"超级管理员",
+        introduction:"超级管理员",
         //默认头像
-        avator:"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+        avatar:"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
         name:'Super Admin'
     },
     editor:{
         roles:["user"],
         token:"user",
-        introdution:"普通用户",
-        avator:"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+        introduction:"普通用户",
+        avatar:"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
         name:"Normal User"
     }
 }
@@ -26,6 +26,7 @@ const userMap={
 export default {
     loginByUsername:config=>{
         const {username}=JSON.parse(config.body)
+        console.log(userMap[username],"config")
         return userMap[username]
     },
     getUserInfo:config=>{

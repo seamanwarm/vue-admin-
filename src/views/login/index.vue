@@ -3,18 +3,14 @@
   <el-container class="login-container">
        
     <div style="margin: 0 auto; width:400px;">
-      <el-form ref="loginForm" :rules="loginRules" :label-position="labelPosition" label-width="80px" :model="loginInfo">
+      <el-form ref="loginForm" :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
         <el-form-item label="账号" prop="username">
-          <el-input v-model="loginInfo.username"></el-input>
+          <el-input v-model="formLabelAlign.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input 
-          v-model="loginInfo.password" 
-          :type="passwordType"
-          @keyup.enter.native="handleLogin(loginInfo)"
-          ></el-input>
+          <el-input v-model="formLabelAlign.password"></el-input>
         </el-form-item>
-        <el-button :loading="loading"  type="primary" @click="handleLogin(loginInfo)">登录</el-button>
+        <el-button :loading="loading"  type="primary" @click="handleLogin()">登录</el-button>
       </el-form>
     </div>
   </el-container>
@@ -41,17 +37,11 @@ export default {
     }
     return {
       labelPosition: "right",
-      loginInfo: {
+      formLabelAlign: {
         username: "admin",
-        password: "123456",
-      },
-      //规则要传给form
-      loginRules:{
-        username:[{required: true,validator:validateUsername,trigger:"blur"}],
-        password:[{required: true,validator:validatePassword,trigger:"blur"}]
+        password: "222",
       },
       loading:false,
-      passwordType:"password"
     };
   },
   mounted(){
@@ -59,11 +49,17 @@ export default {
   },
   methods:{
       handleLogin(){
-          console.log(this.$refs.loginForm)
+           
           this.$refs.loginForm.validate(valid=>{
               if(valid){
                 this.loading=true;
-                console.log(this.loginForm)
+                console.log(this.formLabelAlign)
+                console.log(this.$store) 
+                this.$store.dispatch('LoginByUsername', this.formLabelAlign).then(()=>{
+                  this.loading=false;
+                  this.$router.push()
+                })
+                
               }else{
                   console.log("erro sumbmit!!!!")
                   return false
