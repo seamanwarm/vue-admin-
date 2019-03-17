@@ -45,7 +45,8 @@ export default {
     };
   },
   mounted(){
-      
+    
+ 
   },
   methods:{
       handleLogin(){
@@ -57,7 +58,7 @@ export default {
                 console.log(this.$store) 
                 this.$store.dispatch('LoginByUsername', this.formLabelAlign).then(()=>{
                   this.loading=false;
-                  this.$router.push()
+                  this.$router.push({path:this.redirect || "/"})
                 })
                 
               }else{
