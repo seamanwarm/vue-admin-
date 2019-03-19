@@ -25,8 +25,10 @@ const userMap={
 /* 但此处用的是token,前端发送token */
 export default {
     loginByUsername:config=>{
+        //此处的config 是传过来的参数
         const {username}=JSON.parse(config.body)
-        console.log(userMap[username],"config")
+        console.log(JSON.parse(config.body),"JSON.parse(config.body)")
+        console.log(userMap[username],"userMap[username] ")
         return userMap[username]
     },
     getUserInfo:config=>{
