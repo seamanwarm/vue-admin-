@@ -27,12 +27,11 @@ export default {
     loginByUsername:config=>{
         //此处的config 是传过来的参数
         const {username}=JSON.parse(config.body)
-        console.log(JSON.parse(config.body),"JSON.parse(config.body)")
-        console.log(userMap[username],"userMap[username] ")
         return userMap[username]
     },
     getUserInfo:config=>{
         const { token } = param2Obj(config.url)
+        console.log(config)
         if(userMap[token]){
             return userMap[token]
         }else{

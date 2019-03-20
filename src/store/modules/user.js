@@ -1,5 +1,5 @@
 import{getToken,setToken,removeToken} from "../../utils/auth"
-import { loginByUsername } from "../../api/login";
+import { loginByUsername,getUserInfo} from "../../api/login";
 const user ={
     state:{
         user:"",
@@ -17,6 +17,9 @@ const user ={
     mutations: {
         SET_TOKEN:(state,token)=>{
             state.token=token
+        },
+        SET_ROLES:(state,roles)=>{
+            state.roles=roles
         }
     },
     actions:{
@@ -33,6 +36,28 @@ const user ={
                 }).catch(err=>{
                     reject(err)
                 })
+            })
+        },
+        GetUserInfo({commit,state}){
+            return new Promise((resole,reject)=>{
+                getUserInfo(state.token).then(res=>{
+                    console.log(res)
+                    if(!res.data){
+                        reject("token,验证失败请重新登录")
+                    }
+                    const data =res.data
+                    if(data.roles && data.roles.length>0){
+                        commit("SET_ROLES",data.roles)    
+                    }else{
+                        reject("getInfo:role must be a non-null array!")
+                    }
+                    commit("SET_NAME",data.name)
+                    commit("SET_AVATAR",data.avatar)
+                    commit("SET_INTRODUCTION",data.introduction)
+                    resolve()
+                }).catch(err=>{
+                    reject(err)
+                })  
             })
         }
     }
