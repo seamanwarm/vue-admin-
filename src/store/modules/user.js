@@ -1,4 +1,4 @@
-import{getToken,setToken,removeToken} from "../../utils/auth"
+import{getToken,setToken} from "../../utils/auth"
 import { loginByUsername,getUserInfo} from "../../api/login";
 const user ={
     state:{
@@ -39,9 +39,9 @@ const user ={
             })
         },
         GetUserInfo({commit,state}){
-            return new Promise((resole,reject)=>{
+            return new Promise((resolve,reject)=>{
                 getUserInfo(state.token).then(res=>{
-                    console.log(res)
+                   
                     if(!res.data){
                         reject("token,验证失败请重新登录")
                     }
