@@ -22,7 +22,7 @@ import permission from "../views/permission/index.vue"
     }
 ] */
 /* 不需要权限的路由 */
- const constantRoutes=[
+export const constantRoutes=[
   
     {
         path:"/login",
@@ -55,7 +55,7 @@ import permission from "../views/permission/index.vue"
   /* 404页面一定要写到动态路由的最后一项
     如果放在一般路由中一同声明了404的话 后面的所有页面都会被拦截
    */
-const asynRouterMap=[
+  export const asynRouterMap=[
     {
         path:"/permission",
         component:Layout,

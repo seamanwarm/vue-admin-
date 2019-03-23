@@ -21,7 +21,7 @@ router.beforeEach((to, from, next) => {
             if(store.getters.roles.length===0){
                store.dispatch('GetUserInfo').then(res=>{
                  const roles = res.data.roles;
-                 store.dispatch('GenerateRoutes',{role}).then(()=>{
+                 store.dispatch('GenerateRoutes',{roles}).then(()=>{
                    router.addRoutes(store.getters.addRoutes)
                    //确保addRoute已经完成
                    next({...to,replace:true})
@@ -29,8 +29,16 @@ router.beforeEach((to, from, next) => {
                    console.log(err)
                  })
                })
+            }else{
+              //当用户有权限的时候，说明所有可访问的路由已经生成
+              //访问没权限的页面都会进入404页面
+              next()
             }
          }
+    }else{
+       if(to.path==="/login"){
+         next()
+       }
     }
 })
 Vue.use(ElementUI);
