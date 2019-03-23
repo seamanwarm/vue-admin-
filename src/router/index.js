@@ -4,6 +4,7 @@ Vue.use(Router)
 /* layout */
 import Layout from "../views/layout/index.vue"
 import dashboard from "../views/dashboard/index.vue"
+import permission from "../views/permission/index.vue"
  
 /* 路由懒加载 */
 /* 路由懒加载有三种方法 */
@@ -51,16 +52,27 @@ import dashboard from "../views/dashboard/index.vue"
    3. 找到一个则不会再继续往下找，如果找不到则为false
     
  */
+  /* 404页面一定要写到动态路由的最后一项
+    如果放在一般路由中一同声明了404的话 后面的所有页面都会被拦截
+   */
 const asynRouterMap=[
-    {path:"/permission",
-     component:Layout,
-     name:"权限测试" ,
-     mate:{role:["admin","super_editor"]}, //即页面需要的权限要求
-     children:[
-        {path:"index",}
-     ]
+    {
+        path:"/permission",
+        component:Layout,
+        name:"权限测试" ,
+        mate:{role:["admin","super_editor"]}, //即页面需要的权限要求
+        children:[
+        { 
+            path:"index",
+            component:permission,
+            name:"权限页面",
+            mate:{role:["admin","super_editor"]}//即页面需要的权限
+        }
+        ]
 
-    }
+    },
+
+    {path:"*",redirect: "/404"}
 ]
 
  

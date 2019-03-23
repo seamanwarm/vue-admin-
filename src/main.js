@@ -8,8 +8,8 @@ import router from "./router/index.js"
 import store from './store/index.js'
 import mock from "./mock/index.js"
 import { getToken } from "./utils/auth"
- 
-/* router.beforeEach((to, from, next) => {
+//导航守卫
+router.beforeEach((to, from, next) => {
     //to and from are Route Object,next() must be called to resolve the hook}
     //如果有token
     if(getToken()){
@@ -17,10 +17,22 @@ import { getToken } from "./utils/auth"
          if(to.path==="/login"){
             next({path:"/"})
          }else{
-            
+           //判断是否已经获取到用户信息
+            if(store.getters.roles.length===0){
+               store.dispatch('GetUserInfo').then(res=>{
+                 const roles = res.data.roles;
+                 store.dispatch('GenerateRoutes',{role}).then(()=>{
+                   router.addRoutes(store.getters.addRoutes)
+                   //确保addRoute已经完成
+                   next({...to,replace:true})
+                 }).catch(err=>{
+                   console.log(err)
+                 })
+               })
+            }
          }
     }
-}) */
+})
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 
