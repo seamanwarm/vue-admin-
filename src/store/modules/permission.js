@@ -33,11 +33,26 @@ const permission={
         //commit 该子部分对应的sate实例 data 传递进来的
         GenerateRoutes({commit},data){
             return new promises(resolve=>{
-                const {role}=data
+                const {roles}=data
                 //即 role.role=data.role? 对象解构赋值是模式键名相同
                 const accessedRouters = asynRouterMap.filter(item=>{
-
-                })
+                    //asynRouterMap中的mate里面的role 是否和 用户的role相同 如相同则添加
+                    if(roles.indexOf("admin")>0) return true
+                    if(hasPermission(roles,item)){
+                        if(item.children && item.children.length>0){
+                            item.children=item.children.filter((child)=>{
+                                if(hasPermission(roles,child)) {
+                                    return child
+                                }
+                                return false
+                            })
+                            return item
+                        }
+                    }
+                    return false
+                });
+                commit(SET_ROUTERS,accessedRouters);
+                resolve();
             })
         }
     }
