@@ -6,7 +6,7 @@ function hasPermission(roles,route){
     //还是所有的route.mate是所有从最开始的根开始的路由记录
     if(route.mate&&route.mate.role){
         //indexOf和includes的区别
-         return roles.some(role=>role.mate.role.includes(role)>=0)
+         return roles.some(role=>route.mate.role.includes(role)>=0)
     }else{
          return true
     }
@@ -15,14 +15,17 @@ function hasPermission(roles,route){
 //
 const permission={
     state: {
-       state:{
-           routers:constantRoutes,
-           addRouters:[]
-       } 
+       
+        routers:constantRoutes,
+        addRouters:[]
+       
     },
     mutations: {
         //state 该子部分对应的sate实例 routers 传递进来的
        SET_ROUTERS:(state,routers)=>{
+           //把有权限的路由判断出来之后 添加到一般路由中
+            state.addRouters=routers
+            state.routers=constantRoutes.concat(routers)
 
        } 
     },
@@ -31,8 +34,9 @@ const permission={
         因此你可以调用 context.commit 提交一个 mutation，
         或者通过 context.state 和 context.getters 来获取 state 和 getters ,context.commit=commit.commit*/
         //commit 该子部分对应的sate实例 data 传递进来的
+        //promise 和promise
         GenerateRoutes({commit},data){
-            return new promises(resolve=>{
+            return new Promise(resolve=>{
                 const {roles}=data
                 //即 role.role=data.role? 对象解构赋值是模式键名相同
                 const accessedRouters = asynRouterMap.filter(item=>{
@@ -51,7 +55,7 @@ const permission={
                     }
                     return false
                 });
-                commit(SET_ROUTERS,accessedRouters);
+                commit("SET_ROUTERS",accessedRouters);
                 resolve();
             })
         }

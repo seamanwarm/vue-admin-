@@ -18,13 +18,19 @@ router.beforeEach((to, from, next) => {
             next({path:"/"})
          }else{
            //判断是否已经获取到用户信息
+           console.log(store.getters)
             if(store.getters.roles.length===0){
                store.dispatch('GetUserInfo').then(res=>{
+                 console.log(res,"res")
                  const roles = res.data.roles;
                  store.dispatch('GenerateRoutes',{roles}).then(()=>{
+                 
                    router.addRoutes(store.getters.addRoutes)
+                   
                    //确保addRoute已经完成
+                    
                    next({...to,replace:true})
+
                  }).catch(err=>{
                    console.log(err)
                  })

@@ -15,10 +15,5 @@ const  store= new Vuex.Store({
   },
   getters
 })
-/* const  store= new Vuex.Store({
-  state:{},
-  mutations:{},
-  actions:{},
-  getters{}
-}) */
+console.log(permission) 
 export default  store

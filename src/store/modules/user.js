@@ -20,6 +20,15 @@ const user ={
         },
         SET_ROLES:(state,roles)=>{
             state.roles=roles
+        },
+        SET_NAME:(state,name)=>{
+            state.name=name
+        },
+        SET_AVATAR:(state,avatar)=>{
+            state.avatar=avatar
+        },
+        SET_INTRODUCTION:(state,introduction)=>{
+            state.introduction=introduction
         }
     },
     actions:{
@@ -28,7 +37,6 @@ const user ={
             return new Promise((resolve,reject)=>{
                 //调用请求api
                 loginByUsername(username,userInfo.password).then(res=>{
-                    console.log(res,"res")
                     const data=res.data
                     commit("SET_TOKEN",data.token)
                     setToken(res.data.token)
@@ -41,7 +49,6 @@ const user ={
         GetUserInfo({commit,state}){
             return new Promise((resolve,reject)=>{
                 getUserInfo(state.token).then(res=>{
-                   
                     if(!res.data){
                         reject("token,验证失败请重新登录")
                     }
@@ -54,7 +61,7 @@ const user ={
                     commit("SET_NAME",data.name)
                     commit("SET_AVATAR",data.avatar)
                     commit("SET_INTRODUCTION",data.introduction)
-                    resolve()
+                    resolve(res)
                 }).catch(err=>{
                     reject(err)
                 })  
