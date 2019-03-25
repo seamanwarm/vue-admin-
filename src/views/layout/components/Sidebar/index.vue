@@ -1,51 +1,61 @@
 <template>
-  <el-row class="tac">
-  <el-col :span="12">
-    <h5>自定义颜色</h5>
+  <div class="sidebar-container el-scrollbar">
+    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+      <el-radio-button :label="false">展开</el-radio-button>
+      <el-radio-button :label="true">收起</el-radio-button>
+    </el-radio-group>
     <el-menu
-      default-active="2"
+      default-active="1-4-1"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
+      :collapse="isCollapse"
       background-color="#545c64"
       text-color="#fff"
-      active-text-color="#ffd04b">
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
-        </template>
-        <el-menu-item-group>
-          <template slot="title">分组一</template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
+      active-text-color="#ffd04b"
+      
+    >
+      <Sidebar-Item 
+      v-for="route in permission_routes"
+      :key="route.path"
+      :item="route"
+      :base-path="route.path"
+
+      ></Sidebar-Item>
     </el-menu>
-  </el-col>
-</el-row>
+  </div>
 </template>
+<style scoped >
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
+  }
+  .sidebar-container {
+    height: 100%;
+  }
+</style>
+
 <script>
+import { mapGetters } from "vuex"
+import SidebarItem from "../Sidebar/SidebarItem.vue"
   export default {
+    data() {
+      return {
+        isCollapse: true
+      };
+    },
+    created () {
+      console.log(this.$store.getters.permission_routes,'GETTER')
+    },
+    computed: {
+      ...mapGetters([
+        "permission_routes",
+        "sidebar"
+      ])
+    },
+    components: {
+      SidebarItem
+    },
     methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
@@ -56,9 +66,5 @@
     }
   }
 </script>
-<style lang="less" scoped>
-
-
-</style>
 
 
