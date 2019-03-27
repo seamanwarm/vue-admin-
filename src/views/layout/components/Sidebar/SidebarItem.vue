@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-submenu index="1">
+    <!-- <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>
           <span slot="title">导航一</span>
@@ -17,7 +17,10 @@
           <span slot="title">选项4</span>
           <el-menu-item index="1-4-1">选项1</el-menu-item>
         </el-submenu>
-    </el-submenu>
+    </el-submenu> -->
+    <template v-if="hasOneShowingChild(item.children,item)">
+
+    </template>
     <el-menu-item index="2">
         <i class="el-icon-menu"></i>
         <span slot="title">导航二</span>
@@ -27,6 +30,14 @@
         <span slot="title">导航三</span>
     </el-menu-item>
     <div>{{basePath}}</div>
+    <sidebar-item
+        v-for="child in item.children"
+        :key="child.path"
+        :is-nest="true"
+        :item="child"
+        :base-path="resolvePath(child.path)"
+        class="nest-menu"
+      />
   </div>
 </template>
 <script>
@@ -35,7 +46,7 @@ import { isExternal } from '@/utils/validate'
 import {  Item } from "./Item"
 import  { AppLink } from "./Link.vue"
 export default {
-  name: "sidebarItem",
+  name: "SidebarItem",
   components: {
     Item,
     AppLink
@@ -52,10 +63,28 @@ export default {
     }
   },
   data(){
+    this.onlyOnechild = null
     return{}
   },
   methods: {
-    
+    //只有一个节点的即不用进行组件递归的
+    hasOneShowingChild(children=[],parent){
+        const showingChidren = children.filter(item=>{
+            this.onlyOnechild = item
+            return true
+        })
+        //为什么这里有一个儿子还返回true
+        if(showingChidren.length === 1){
+            return true
+        }
+
+        if(showingChidren.length === 0){
+           this.onlyOnechild = {...parent,path:"",noShowingChildren:true}
+           return true
+        }
+
+        return  false
+    }
   }
 };
 </script>
