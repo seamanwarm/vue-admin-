@@ -1,5 +1,5 @@
 <template>
-    <component>
+    <component v-bind="linkProps(to)">
         <solt/>
     </component>
 </template>
