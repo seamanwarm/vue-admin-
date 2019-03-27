@@ -18,7 +18,6 @@ router.beforeEach((to, from, next) => {
             next({path:"/"})
          }else{
            //判断是否已经获取到用户信息
-           console.log(store.getters)
             if(store.getters.roles.length===0){
                store.dispatch('GetUserInfo').then(res=>{
                  console.log(res,"res")
@@ -41,7 +40,8 @@ router.beforeEach((to, from, next) => {
               next()
             }
          }
-    }else{
+    }
+    else{
        if(to.path==="/login"){
          next()
        }

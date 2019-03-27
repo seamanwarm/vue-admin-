@@ -6,5 +6,5 @@ const getters={
    addRoutes:state=>state.permission.addRouters,
    permission_routes:state=>state.permission.routers
 }
-console.log(getters.permission_routes,"permission_routes")
+ 
 export default getters
