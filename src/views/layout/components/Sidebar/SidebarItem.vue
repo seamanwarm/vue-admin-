@@ -1,60 +1,27 @@
 <template>
   <div>
-    <!-- <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
-        </template>
-        <el-menu-item-group>
-            <span slot="title">分组一</span>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-    </el-submenu> 
-    <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-    </el-menu-item>
-    <el-menu-item index="3">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航三</span>
-    </el-menu-item>
-    -->
-    <!-- <template v-if="hasOneShowingChild(item.children,item)">
+    <template v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)">
         <app-link :to="resolvePath(onlyOneChild.path)">
-            <el-menu-item index="3">
+            <el-menu-item :index="resolvePath(onlyOneChild.path)" >
                 <i class="el-icon-setting"></i>
                 <span slot="title">
-                     <item :title="generateTitle(item.meta.title)"></item>
+                     <item v-if="onlyOneChild.meta" :title="generateTitle(item.meta.title)"></item>
                 </span>
             </el-menu-item>
         </app-link>
-    </template> -->
-    <el-submenu v-else index="1">
+    </template>
+    <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)">
         <template slot="title"> 
             <item :title="generateTitle(item.meta.title)"></item>
         </template>
         <sidebar-item
-        v-for="child in item.children"
-        :key="child.path"
-        :is-nest="true"
-        :item="child"
-        :base-path="resolvePath(child.path)"
-        class="nest-menu"
+          v-for="child in item.children"
+          :key="child.path"
+          :item="child"
+          :base-path="resolvePath(child.path)"
+          class="nest-menu"
       />
     </el-submenu>
-    
-
-  
-    <div>{{basePath}}</div>
-    
   </div>
 </template>
 <script>
@@ -81,14 +48,15 @@ export default {
     }
   },
   data(){
-     this.onlyOnechild = null
+    this.onlyOneChild = null 
     return{
-     
+         
     }
   },
   methods: {
     //只有一个节点的即不用进行组件递归的
     hasOneShowingChild(children=[],parent){
+        console.log(children,"children")
         const showingChidren = children.filter(item=>{
             this.onlyOnechild = item
             return true
