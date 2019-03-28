@@ -17,10 +17,7 @@
           <span slot="title">选项4</span>
           <el-menu-item index="1-4-1">选项1</el-menu-item>
         </el-submenu>
-    </el-submenu> -->
-    <template v-if="hasOneShowingChild(item.children,item)">
-
-    </template>
+    </el-submenu> 
     <el-menu-item index="2">
         <i class="el-icon-menu"></i>
         <span slot="title">导航二</span>
@@ -29,8 +26,22 @@
         <i class="el-icon-setting"></i>
         <span slot="title">导航三</span>
     </el-menu-item>
-    <div>{{basePath}}</div>
-    <sidebar-item
+    -->
+    <!-- <template v-if="hasOneShowingChild(item.children,item)">
+        <app-link :to="resolvePath(onlyOneChild.path)">
+            <el-menu-item index="3">
+                <i class="el-icon-setting"></i>
+                <span slot="title">
+                     <item :title="generateTitle(item.meta.title)"></item>
+                </span>
+            </el-menu-item>
+        </app-link>
+    </template> -->
+    <el-submenu v-else index="1">
+        <template slot="title"> 
+            <item :title="generateTitle(item.meta.title)"></item>
+        </template>
+        <sidebar-item
         v-for="child in item.children"
         :key="child.path"
         :is-nest="true"
@@ -38,11 +49,18 @@
         :base-path="resolvePath(child.path)"
         class="nest-menu"
       />
+    </el-submenu>
+    
+
+  
+    <div>{{basePath}}</div>
+    
   </div>
 </template>
 <script>
 import path from "path"
-import { isExternal } from '@/utils/validate'
+import { isExternal } from '../../../../utils/auth.js'
+import {generateTitle} from "../../../../utils/generateTitle.js"
 import {  Item } from "./Item"
 import  { AppLink } from "./Link.vue"
 export default {
@@ -63,8 +81,10 @@ export default {
     }
   },
   data(){
-    this.onlyOnechild = null
-    return{}
+     this.onlyOnechild = null
+    return{
+     
+    }
   },
   methods: {
     //只有一个节点的即不用进行组件递归的
@@ -84,7 +104,14 @@ export default {
         }
 
         return  false
-    }
+    },
+    resolvePath(routePath){
+       if(isExternal(routePath)){
+          return routePath
+       }
+       return path.resolve(this.basePath,routePath)
+    },
+    generateTitle
   }
 };
 </script>
