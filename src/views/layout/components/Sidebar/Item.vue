@@ -13,6 +13,14 @@
             type:String,
             default:""
         }
+    },
+    render: function (createElement, context) {
+         const { title } =   context.props
+         const vnodes = []
+         if(title){
+             vnodes.push(<span slot='title'>{(title)}</span>)
+         }
+         return vnodes
     }
  }
  </script>
