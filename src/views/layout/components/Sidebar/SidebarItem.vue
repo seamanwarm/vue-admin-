@@ -2,9 +2,10 @@
   <div class="menu-wrapper">
     <template 
     v-if="hasOneShowingChild(item.children,item) && (!onlyOneChild.children||onlyOneChild.noShowingChildren)">
+    <!-- true&&true || true 即没有儿子的情况渲染这里, 图标是最大的爸爸才有的-->
         <app-link :to="resolvePath(onlyOneChild.path)">
             <el-menu-item :index="resolvePath(onlyOneChild.path)" > 
-                <item v-if="item.meta" :title="item.meta.title"></item>
+                <item v-if="item.meta" :title="item.meta.title" :icon="onlyOneChild.meta.icon||item.meta.icon"></item>
             </el-menu-item>
         </app-link>
     </template>
@@ -12,7 +13,7 @@
         <template slot="title"> 
             <item v-if="item.meta" 
             :title="item.meta.title"
-            :icon="item.mate && item.mate.icon"></item>
+            :icon="item.meta && item.meta.icon"></item>
         </template>
         <sidebar-item
           v-for="child in item.children"
@@ -56,23 +57,23 @@ export default {
   methods: {
     //只有一个节点的即不用进行组件递归的
     hasOneShowingChild(children=[],parent){
-         console.log(parent.path,"parent")
+        
         const showingChidren = children.filter(item=>{
             this.onlyOneChild = item
-            
+            console.log(this.onlyOneChild.meta.icon,"icon")
             return true
         })
         
-        //为什么这里有一个儿子还返回true
-        if(showingChidren.length === 1){
-        
+        //如果这里只有一个儿子则不会出现下拉菜单
+         if(showingChidren.length === 1){
+            console.log(showingChidren,"showingChidren.length")
             return true
-        }
+        }  
 
         if(showingChidren.length === 0){
           
            this.onlyOneChild = {...parent, path:'',noShowingChildren:true}
-           console.log(this.onlyOneChild,"onlyOneChild")
+            
            return true
         }
 

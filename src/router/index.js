@@ -46,7 +46,7 @@ export const constantRoutes=[
                 name:"Dashboard",
                 meta:{
                     title:"面板2",
-                    icon:"123"
+                     
                 }
             }
         ],
@@ -77,7 +77,7 @@ export const constantRoutes=[
         meta:{
             role:["admin","super_editor"],
             title:"permission",
-            icon:"123"
+            icon:"456"
         }, //即页面需要的权限要求
         children:[
         { 

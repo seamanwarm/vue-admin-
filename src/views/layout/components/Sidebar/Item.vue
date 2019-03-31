@@ -18,7 +18,8 @@
          const { icon,title } =   context.props
          const vnodes = []
          if(icon){
-             vnodes.push(<i class={icon}></i>)
+             console.log(icon,"icon")
+             vnodes.push(<i class={(icon)}></i>)
          }
          if(title){
              vnodes.push(<span slot='title'>{(title)}</span>)
