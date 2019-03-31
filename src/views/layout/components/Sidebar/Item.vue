@@ -14,9 +14,12 @@
             default:""
         }
     },
-    render: function (createElement, context) {
-         const { title } =   context.props
+    render: function (h, context) {
+         const { icon,title } =   context.props
          const vnodes = []
+         if(icon){
+             vnodes.push(<i class={icon}></i>)
+         }
          if(title){
              vnodes.push(<span slot='title'>{(title)}</span>)
          }

@@ -39,7 +39,8 @@ export const constantRoutes=[
                 component:dashboard,
                 name:"dashboard",
                 meta:{
-                    title:"面板"
+                    title:"面板",
+                    icon:"123"
                 }
             }
         ],
@@ -67,13 +68,21 @@ export const constantRoutes=[
         path:"/permission",
         component:Layout,
         name:"权限测试" ,
-        mate:{role:["admin","super_editor"],title:"权限测试"}, //即页面需要的权限要求
+        meta:{
+            role:["admin","super_editor"],
+            title:"权限测试",
+            icon:"123"
+        }, //即页面需要的权限要求
         children:[
         { 
             path:"index",
             component:permission,
             name:"权限页面",
-            mate:{role:["admin","super_editor"],title:"权限页面"}//即页面需要的权限
+            meta:{
+                role:["admin","super_editor"],
+                title:"权限页面",
+               
+            }//即页面需要的权限
         }
         ]
 

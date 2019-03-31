@@ -1,16 +1,16 @@
 <template>
   <div>
-    <template v-if="hasOneShowingChild(item.children,item)&& (!onlyOneChild.children||onlyOneChild.noShowingChildren)  ">
+    <template v-if="hasOneShowingChild(item.children,item)&& (!onlyOneChild.children||onlyOneChild.noShowingChildren)">
         <app-link :to="resolvePath(onlyOneChild.path)">
             <el-menu-item :index="resolvePath(onlyOneChild.path)" >
-                <i class="el-icon-setting"></i>
-                <item v-if="onlyOneChild.meta" :title="generateTitle(item.meta.title)"></item>
+                
+                <item v-if="item.meta" :title="item.meta.title"  ></item>
             </el-menu-item>
         </app-link>
     </template>
     <el-submenu v-else ref="subMenu" :index="resolvePath(item.path)">
         <template slot="title"> 
-            <item :title="generateTitle(item.meta.title)"></item>
+            <item v-if="item.meta" :title="item.meta.title"  ></item>
         </template>
         <sidebar-item
           v-for="child in item.children"
@@ -58,7 +58,7 @@ export default {
         
         const showingChidren = children.filter(item=>{
             this.onlyOneChild = item
-            
+           
             return true
         })
          
