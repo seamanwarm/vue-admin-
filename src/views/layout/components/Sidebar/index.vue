@@ -7,8 +7,6 @@
     <el-menu
       default-active="1-4-1"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       :collapse="isCollapse"
       background-color="#545c64"
       text-color="#fff"
@@ -42,7 +40,7 @@ import SidebarItem from "../Sidebar/SidebarItem.vue"
   export default {
     data() {
       return {
-        isCollapse: true
+        isCollapse: false
       };
     },
     computed: {
@@ -56,10 +54,10 @@ import SidebarItem from "../Sidebar/SidebarItem.vue"
     },
     methods: {
       handleOpen(key, keyPath) {
-        console.log(key, keyPath);
+        console.log(1);
       },
       handleClose(key, keyPath) {
-        console.log(key, keyPath);
+        console.log(2);
       }
     }
   }

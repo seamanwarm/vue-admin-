@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: undefined,
+  publicPath: "../vue-admin-/src",
   outputDir: undefined,
   assetsDir: undefined,
   runtimeCompiler: undefined,
