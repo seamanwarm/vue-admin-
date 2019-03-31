@@ -1,17 +1,17 @@
 <template>
-    <div class="dashboard-container">
-        <p>这是面板</p>
-       <!--  <component :is='currentRole' /> -->
+    <div class="navbar">
+         
     </div>
 </template>
 <script>
+
 export default {
-    name:"Dashboard",
-   /*  data(){
+    
+    data(){
         return{
           currentRole:"adminDashboard"  
         }
-    } */
+    } 
 }
 </script>
 <style>
