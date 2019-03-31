@@ -28,18 +28,24 @@ export const constantRoutes=[
         path:"/login",
         name:"Login",
         component:resolve=>require(["../views/login/index.vue"],resolve),
+        hidden: true,
     },
     {
-        path:"/",
-        redirect: "/dashboard",
+        path:"",
         component:Layout,
+        redirect: "dashboard",
+        meta:{
+            role:["admin","super_editor"],
+            title:"面板",
+            icon:"123"
+        },
         children:[
             {
                 path:"dashboard",
                 component:dashboard,
-                name:"dashboard",
+                name:"Dashboard",
                 meta:{
-                    title:"面板",
+                    title:"面板2",
                     icon:"123"
                 }
             }
@@ -67,20 +73,30 @@ export const constantRoutes=[
     {
         path:"/permission",
         component:Layout,
-        name:"权限测试" ,
+        redirect: '/permission/index',
         meta:{
             role:["admin","super_editor"],
-            title:"权限测试",
+            title:"permission",
             icon:"123"
         }, //即页面需要的权限要求
         children:[
         { 
-            path:"index",
+            path:"page",
             component:permission,
             name:"权限页面",
             meta:{
                 role:["admin","super_editor"],
-                title:"权限页面",
+                title:"权限页面1",
+               
+            }//即页面需要的权限
+        },
+        { 
+            path:"directive",
+            component:permission,
+            name:"权限页面",
+            meta:{
+                role:["admin","super_editor"],
+                title:"权限页面2",
                
             }//即页面需要的权限
         }

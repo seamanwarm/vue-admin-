@@ -22,7 +22,6 @@
       :base-path="route.path"
 
       >
-      
       </sidebar-item>
     </el-menu>
   </div>
@@ -45,9 +44,6 @@ import SidebarItem from "../Sidebar/SidebarItem.vue"
       return {
         isCollapse: true
       };
-    },
-    created () {
-      console.log(this.$store.getters.permission_routes,'GETTER')
     },
     computed: {
       ...mapGetters([
