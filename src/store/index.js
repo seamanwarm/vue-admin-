@@ -17,5 +17,5 @@ const  store= new Vuex.Store({
   },
   getters
 })
-console.log(permission) 
+console.log(app,"app") 
 export default  store

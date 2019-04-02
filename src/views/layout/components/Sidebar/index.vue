@@ -1,9 +1,6 @@
 <template>
   <div class="sidebar-container el-scrollbar">
-    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-      <el-radio-button :label="false">展开</el-radio-button>
-      <el-radio-button :label="true">收起</el-radio-button>
-    </el-radio-group>
+
     <el-menu
       default-active="1-4-1"
       class="el-menu-vertical-demo"
@@ -38,16 +35,15 @@
 import { mapGetters } from "vuex"
 import SidebarItem from "../Sidebar/SidebarItem.vue"
   export default {
-    data() {
-      return {
-        isCollapse: false
-      };
-    },
+     
     computed: {
       ...mapGetters([
         "permission_routes",
         "sidebar"
-      ])
+      ]),
+      isCollapse() {
+      return !this.sidebar.opened
+      }
     },
     components: {
       SidebarItem

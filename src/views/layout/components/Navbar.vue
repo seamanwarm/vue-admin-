@@ -1,6 +1,6 @@
 <template>
     <div class="navbar">
-         <hamburger></hamburger>
+         <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opend"></hamburger>
     </div>
 </template>
 <script>
@@ -32,6 +32,13 @@ export default {
         ...mapGetters([
             'sidebar'
         ])
+    },
+    methods: {
+        toggleSideBar(){
+
+           this.$store.commit('TOGGLE_SIDEBAR')
+
+        }
     }
 }
 </script>
