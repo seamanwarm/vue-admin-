@@ -19,7 +19,6 @@ const app={
         TOGGLE_SIDEBAR:state=>{
             state.sidebar.opened = !state.sidebar.opened
             state.sidebar.withoutAnimation = false
-            console.log(state.sidebar.opened)
             if(state.sidebar.opened){
                 Cookies.set("sidebarStatus",1)
             }

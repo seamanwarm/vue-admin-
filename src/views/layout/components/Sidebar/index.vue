@@ -58,5 +58,21 @@ import SidebarItem from "../Sidebar/SidebarItem.vue"
     }
   }
 </script>
+<style lang="scss" scoped>
+        .el-menu{
+            height: 100%;
+            .el-submenu__title{
+               &span{
+                 display: none;
+               }
+            }
+        }
+        .el-menu-vertical-demo[data-v-276800be]:not(.el-menu--collapse) {
+            width: 220px;
+            min-height: 400px;
+        }
+
+</style>
+
 
 

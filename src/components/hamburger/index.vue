@@ -31,10 +31,10 @@ export default {
    }
 }
 </script>
-<style scoped>
+<style  rel="stylesheet/scss" lang="scss"   scoped>
  .toggele{
     width: 30px;
     height: 30px;
-    padding: 0 15px;
+    margin: 0 15px;
  }
 </style>
