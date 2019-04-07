@@ -5,9 +5,9 @@
       :default-active="$route.path"
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
-      background-color="#545c64"
+      background-color="#304156"
       text-color="#fff"
-      active-text-color="#ffd04b"
+      active-text-color="#409eff"
       
     >
       <sidebar-item 

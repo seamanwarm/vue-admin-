@@ -4,7 +4,6 @@
         <div class="main-container">
             <Navbar/>
         </div>
-        <router-view></router-view>
     </div>
 </template>
 <script>

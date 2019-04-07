@@ -34,19 +34,15 @@ export const constantRoutes=[
         path:"",
         component:Layout,
         redirect: "dashboard",
-        meta:{
-            role:["admin","super_editor"],
-            title:"面板",
-            icon:"123"
-        },
         children:[
             {
                 path:"dashboard",
                 component:dashboard,
                 name:"Dashboard",
                 meta:{
-                    title:"面板2",
-                     
+                    role:["admin","super_editor"],
+                    title:"面板",
+                    icon:"123"
                 }
             }
         ],
@@ -99,7 +95,8 @@ export const constantRoutes=[
                 title:"权限页面2",
                
             }//即页面需要的权限
-        }
+        },
+        
         ]
 
     },
