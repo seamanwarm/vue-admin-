@@ -1,6 +1,6 @@
 <template>
     <el-breadcrumb separator="/">
-        <el-breadcrumb-item v-for="item in levelList" :key="item.path">
+        <el-breadcrumb-item v-for="(item,index) in levelList" :key="item.path">
             <span v-if='item.redirect ==="noredirect" || index==levelList.length-1' class="no-redirect">{{item.meta.title}}</span>
             <a v-else @click.prevent="handleLink(item)">{{item.meta.title}}</a>
         </el-breadcrumb-item>
@@ -35,7 +35,7 @@ export default {
            })
            const first = matched[0]
            if(first && first.name.trim().toLocaleLowerCase()!=="dashboard".toLocaleLowerCase()){
-               matched = [{path:"/dashboard",meta:{title:"面板"}}].concat(matched)
+               matched = [{path:"/dashboard",redirect:"/",meta:{title:"面板"}}].concat(matched)
            }
            this.levelList = matched.filter(item=>{
                //&& 遇到false即返回
@@ -54,6 +54,7 @@ export default {
        },
        //点击页面跳转
        handleLink(item){
+           console.log(875412845)
            const {redirect ,path } = item
            if(redirect){
                this.$router.push(redirect)
