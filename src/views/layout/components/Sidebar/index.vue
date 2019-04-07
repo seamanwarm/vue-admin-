@@ -2,7 +2,7 @@
   <div class="sidebar-container el-scrollbar">
 
     <el-menu
-      default-active="1-4-1"
+      :default-active="$route.path"
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
       background-color="#545c64"

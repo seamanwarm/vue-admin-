@@ -1,7 +1,7 @@
 <template>
     <div class="navbar">
          <hamburger class="hamburger" :toggle-click="toggleSideBar" :is-active="sidebar.opend"></hamburger>
-         <Breadcrumb class="Breadcrumb"></Breadcrumb>
+         <Breadcrumb class="breadcrumb-container"></Breadcrumb>
     </div>
 </template>
 <script>
@@ -56,7 +56,7 @@ export default {
             -webkit-transition: background .3s;
             transition: background .3s;
         }
-        .Breadcrumb{
+        .breadcrumb-container{
             display: inline-block;
             font-size: 14px;
             line-height: 50px;
