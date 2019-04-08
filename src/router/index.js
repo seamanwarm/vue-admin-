@@ -31,6 +31,12 @@ export const constantRoutes=[
         hidden: true,
     },
     {
+        path:"/register",
+        name:"register",
+        component:resolve=>require(["../views/login/register.vue"],resolve),
+        hidden: true,
+    },
+    {
         path:"",
         component:Layout,
         redirect: "dashboard",
