@@ -2,6 +2,11 @@
     <div class="navbar">
          <hamburger class="hamburger" :toggle-click="toggleSideBar" :is-active="sidebar.opend"></hamburger>
          <Breadcrumb class="breadcrumb-container"></Breadcrumb>
+         <div class="right-menu">
+             <template>
+                <HeaderSearch class="right-menu-item" />     
+             </template>
+         </div>
     </div>
 </template>
 <script>
@@ -61,6 +66,10 @@ export default {
             font-size: 14px;
             line-height: 50px;
             margin-left: 8px;
+        }
+        .right-menu{
+            float: right;
+            line-height: 50px;
         }
     }
 </style>

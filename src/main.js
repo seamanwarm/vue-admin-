@@ -9,6 +9,7 @@ import router from "./router/index.js"
 import store from './store/index.js'
 import mock from "./mock/index.js"
 import { getToken } from "./utils/auth"
+
 //导航守卫
 router.beforeEach((to, from, next) => {
     //to and from are Route Object,next() must be called to resolve the hook}
