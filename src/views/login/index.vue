@@ -1,5 +1,5 @@
 <template>
-<keep-alive >
+<keep-alive :include="includedComponents">
     <component 
     :is="currentView" 
     @changestaus="currentViewStaus">
