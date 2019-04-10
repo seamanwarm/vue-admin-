@@ -1,5 +1,23 @@
-import{getToken,setToken} from "../../utils/auth"
+import { getToken,setToken } from "../../utils/auth"
 import { loginByUsername,getUserInfo} from "../../api/login";
+import request from "../../utils/request"
+
+export function registerByUser(username,password,name){
+    let data={
+        username,
+        password,
+        name
+    }
+    data =JSON.stringify(data)
+    console.log(data)
+    return request({
+        url:"/home/register",
+        method:"post",
+        data
+    })
+}
+ 
+ 
 const user ={
     state:{
         user:"",
@@ -66,6 +84,22 @@ const user ={
                     reject(err)
                 })  
             })
+        },
+        RegisterByUser({commit},registerInfo){
+            
+            const username = registerInfo.username.trim()
+            const name = registerInfo.name.trim()
+            const password = registerInfo.password
+            console.log(registerInfo,"registerInfo")
+            debugger
+             return new Promise((resolve,reject)=>{
+                registerByUser(username,password,name).then(res=>{
+                    console.log(res,"成功")
+                    resolve()
+                }).catch(err=>{
+                    reject(err)
+                })
+             })
         }
     }
 }

@@ -11,6 +11,9 @@
         <el-form-item label="密码" prop="password">
           <el-input v-model="formLabelAlign.password"></el-input>
         </el-form-item>
+        <el-form-item label="昵称" prop="name">
+          <el-input v-model="formLabelAlign.name"></el-input>
+        </el-form-item>
         <el-button :loading="loading"  type="primary" @click="handleLogin()">注册</el-button>
         <p>已有账号？<a @click.prevent.stop="toLogin">登录</a></p>
       </el-form>
@@ -37,11 +40,18 @@ export default {
             return callback(new Error("密码不能为空"))
         }
     }
+    const validatename=(rule,value,callback)=>{
+        if(value===""){
+            
+            return callback(new Error("昵称不能为空"))
+        }
+    }
     return {
       labelPosition: "right",
       formLabelAlign: {
         username: " ",
         password: "",
+        name:""
       },
       loading:false,
     };
@@ -51,22 +61,26 @@ export default {
  
   },
   methods:{
-      handleLogin(){
-           
-          this.$refs.loginForm.validate(valid=>{
-              if(valid){
-                this.loading=true;
-                this.$store.dispatch('LoginByUsername', this.formLabelAlign).then(()=>{
-                  this.loading=false;
-                  this.$router.push({path:this.redirect || "/"})
-                })
-                
-              }else{
-                  console.log("erro sumbmit!!!!")
-                  return false
-              }
-          })
-      },
+        handleLogin(){
+            this.$refs.loginForm.validate(valid=>{
+                if(valid){
+                  this.loading=true;
+                  console.log(this.formLabelAlign,"this.formLabelAlig")
+                  this.$store.dispatch("RegisterByUser",this.formLabelAlign).then(()=>{
+                    this.loading = false;
+                    this.$router.push({path:this.redirect || "/"})
+                  })
+                  /* this.$store.dispatch('LoginByUsername', this.formLabelAlign).then(()=>{
+                    this.loading=false;
+                    this.$router.push({path:this.redirect || "/"})
+                  }) */
+                  
+                }else{
+                    console.log("erro sumbmit!!!!")
+                    return false
+                }
+            })
+        },
         toLogin(){
             this.$emit("changestaus","login")
          }
