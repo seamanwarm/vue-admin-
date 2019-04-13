@@ -9,7 +9,7 @@ export function registerByUser(username,password,name){
         name
     }
     data =JSON.stringify(data)
-    console.log(data)
+
     return request({
         url:"/home/register",
         method:"post",
