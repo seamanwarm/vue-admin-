@@ -1,6 +1,10 @@
 <template>
-  <el-select v-model="value8" filterable placeholder>
+  <el-select v-model="Search"
+   filterable 
+    placeholder="Search"
+   >
     <el-option
+    
       v-for="item in options"
       :key="item.value"
       :label="item.label"
@@ -23,7 +27,7 @@ export default {
   name: "HeaderSearch",
   data() {
     return {
-      seach:"",
+      Search:"",
       options: [],
       searchPool:"",
       value8: "",
@@ -33,8 +37,49 @@ export default {
   },
   computed: {
     routes(){
-      this.$store.getters.permssion_routers
+      return this.$store.getters.permssion_routers
     },
+  },
+  watch: {
+    routes(){
+      this.searchPool = this.generateRoutes(this.routes)
+    }
+  },
+  methods: {
+    generateRoutes(routes,basePath = "/",prefixTitle = []){
+      console.log(routes,"routes")
+      let  res = []
+      for (const router of routes){
+
+        if(router.hidden){ continue }
+
+        const  data = {
+          path: path.resolve(basePath,router.path)
+        }
+
+        if(router.mate && router.meta.title){
+
+          data.title = [...data.title]
+
+          if(router.redirect !== "noredirect"){
+
+            res.push(data)
+          }
+
+        }
+
+        //如果路由嵌套-----即路由中又有子路由-----采用递归-----项目多次采用递归的手法，
+        /* 可以一层一层得出想要的结果 */
+        if(router.children){
+          const tempRoutes = this.generateRoutes(router.children,data.path,data.title)
+          if(tempRoutes.length >=1){
+            res = [...res,...tempRoutes]
+          }
+          
+        }
+        return  res
+      }
+    }
   }
 };
 </script>
